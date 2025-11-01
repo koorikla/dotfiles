@@ -6,7 +6,9 @@ pkgs.mkShell {
   buildInputs = with pkgs; [
     ncurses
     kubectl
+    kubectl-neat
     kubernetes-helm
+    git
     k9s
     docker
     yq
