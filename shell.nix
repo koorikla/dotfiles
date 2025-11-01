@@ -1,11 +1,12 @@
 { pkgs ? import <nixpkgs> {} }:
 
 pkgs.mkShell {
-  name = "kube-dev-env";
+  name = "kube-dev-env-zsh";
 
   buildInputs = with pkgs; [
+    ncurses
     kubectl
-    helm
+    kubernetes-helm
     k9s
     docker
     yq
@@ -16,41 +17,50 @@ pkgs.mkShell {
     kargo
     crossplane
     starship
-    bash-completion
     zsh
     zsh-autosuggestions
     zsh-syntax-highlighting
   ];
 
+  ZDOTDIR = "$TMPDIR/zdotdir";
+
   shellHook = ''
-    echo "🚀 Welcome to your Kubernetes Dev Shell!"
+    export ZDOTDIR="$TMPDIR/zdotdir"
+    mkdir -p "$ZDOTDIR"
 
-    # Alias for kubectl
-    alias k=kubectl
+    cat > "$ZDOTDIR/.zshrc" << 'EOF'      
+        eval "$(starship init zsh)"
 
-    # Bash autocomplete
-    if [ -n "$BASH_VERSION" ]; then
-      source ${pkgs.bash-completion}/etc/profile.d/bash_completion.sh 2>/dev/null || true
-      source <(kubectl completion bash)
-      complete -F __start_kubectl k
-    fi
+        # Ensure zsh completion system is initialized
+        autoload -Uz compinit
+        compinit
+        zstyle ':completion:*' menu select
+        zstyle ':completion:*' select-prompt '%SScrolling active: %p%s'
 
-    # Zsh setup
-    if [ -n "$ZSH_VERSION" ]; then
-      # Enable compinit
-      autoload -Uz compinit
-      compinit
+        # kubectl completion
+        if [[ $commands[kubectl] ]]; then
+        source <(kubectl completion zsh)
+        alias k=kubectl
+        compdef __start_kubectl k
+        fi
 
-      # Kubectl autocomplete
-      source <(kubectl completion zsh)
-      compdef __start_kubectl k
+        # argocd completion
+        if [[ $commands[argocd] ]]; then
+        source <(argocd completion zsh)
+        fi
 
-      # Starship prompt
-      eval "$(starship init zsh)"
+        # kargo completion
+        if [[ $commands[kargo] ]]; then
+        source <(kargo completion zsh)
+        fi
 
-      # Zsh plugins
-      source ${pkgs.zsh-autosuggestions}/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-      source ${pkgs.zsh-syntax-highlighting}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-    fi
+        # helm completion
+        if [[ $commands[helm] ]]; then
+        source <(helm completion zsh)
+        fi      
+EOF
+    
+    # Run Zsh as an interactive shell (no -l flag)
+    exec ${pkgs.zsh}/bin/zsh
   '';
 }

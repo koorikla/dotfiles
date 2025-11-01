@@ -4,9 +4,30 @@ eval "$(starship init zsh)"
 autoload -Uz compinit
 compinit
 
+
+zstyle ':completion:*' menu select
+zstyle ':completion:*' select-prompt '%SScrolling active: %p%s'
+
+
+
 # kubectl completion
 if [[ $commands[kubectl] ]]; then
   source <(kubectl completion zsh)
   alias k=kubectl
   compdef __start_kubectl k
+fi
+
+# helm completion
+if [[ $commands[helm] ]]; then
+  source <(helm completion zsh)
+fi
+
+# argocd completion
+if [[ $commands[argocd] ]]; then
+  source <(argocd completion zsh)
+fi
+
+# kargo completion
+if [[ $commands[kargo] ]]; then
+  source <(kargo completion zsh)
 fi
