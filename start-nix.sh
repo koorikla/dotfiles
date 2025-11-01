@@ -1,8 +1,9 @@
 # Just for testing, it makes sense to actually install nix on system lvl
 
 # 1. create gitconfig (if using ssh auth)
-git config --global user.email "yourname@gmail.com"
-git config --global user.name "yourname"
+
+# git config --global user.email "yourname@gmail.com"
+# git config --global user.name "yourname"
 
 
 docker run -it --rm \

@@ -37,10 +37,13 @@ brew install sketchybar
 brew install borders
 brew install yabai
 
+brew install --cask docker-desktop
 brew install kubectl
 brew install k9s
 brew install minikube
 brew install helm
+brew install tfenv
+brew install tgenv
 
 # ### Terminal
 # brew install neovim

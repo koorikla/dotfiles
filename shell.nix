@@ -61,8 +61,7 @@ pkgs.mkShell {
         source <(helm completion zsh)
         fi      
 EOF
-    
-    # Run Zsh as an interactive shell (no -l flag)
+
     exec ${pkgs.zsh}/bin/zsh
   '';
 }
