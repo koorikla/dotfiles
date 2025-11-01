@@ -27,8 +27,6 @@ brew install boost
 brew install libomp
 brew install armadillo
 brew install wget
-brew install jq
-brew install yq
 brew install ripgrep
 brew install bear
 brew install mas
@@ -40,6 +38,8 @@ brew install sketchybar
 brew install borders
 brew install yabai
 
+brew install jq
+brew install yq
 brew install kubectl
 brew install k9s
 brew install minikube
@@ -69,6 +69,7 @@ brew install lulu
 ## Casks
 echo "Installing Brew Casks..."
 brew install --cask docker-desktop
+brew install --cask visual-studio-code
 
 ### Terminals & Browsers
 # brew install --cask alacritty
@@ -83,11 +84,6 @@ brew install --cask meetingbar
 brew install --cask skim
 brew install --cask vlc
 
-# ### Reversing
-# brew install --cask machoview
-# brew install --cask hex-fiend
-# brew install --cask cutter
-# brew install --cask sloth
 
 ### Nice to have
 brew install --cask alfred
@@ -105,7 +101,7 @@ brew install --cask font-fira-code
 # # Mac App Store Apps
 # echo "Installing Mac App Store Apps..."
 # mas install 1451685025 #Wireguard
-# mas install 497799835 #xCode
+mas install 497799835 #xCode
 # mas install 1480933944 #Vimari
 
 # # macOS Settings
@@ -124,27 +120,29 @@ defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
 defaults write NSGlobalDomain AppleHighlightColor -string "0.65098 0.85490 0.58431"
 defaults write NSGlobalDomain AppleAccentColor -int 1
-# defaults write com.apple.screencapture location -string "$HOME/Desktop"
-# defaults write com.apple.screencapture disable-shadow -bool true
-# defaults write com.apple.screencapture type -string "png"
+defaults write com.apple.screencapture location -string "$HOME/Desktop"
+defaults write com.apple.screencapture disable-shadow -bool true
+defaults write com.apple.screencapture type -string "png"
 defaults write com.apple.finder DisableAllAnimations -bool true
-# defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
-# defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
-# defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
-# defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
+
+defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowHardDrivesOnDesktop -bool true
+defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
+defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
+
 defaults write com.apple.Finder AppleShowAllFiles -bool true
-# defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
-# defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
-# defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
+defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 defaults write com.apple.finder ShowStatusBar -bool false
-# defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool YES
-# defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool YES
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
-# defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
-# defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
-# defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
-# defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
+defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
+defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
+defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 defaults write -g NSWindowShouldDragOnGesture YES
 
 ## Fix for MX Master 3S
@@ -152,43 +150,60 @@ sudo defaults write /Library/Preferences/com.apple.airport.bt.plist bluetoothCoe
 
 # Copying and checking out configuration files
 echo "Planting Configuration Files..."
-[ ! -d "$HOME/dotfiles" ] && git clone --bare git@github.com:koorikla/dotfiles.git $HOME/dotfiles
+[ ! -d "$HOME/dotfiles" ] && git clone https://@github.com/koorikla/dotfiles.git $HOME/dotfiles
 git --git-dir=$HOME/dotfiles/ --work-tree=$HOME checkout master
 
-# # Installing Fonts
-# git clone git@github.com:shaunsingh/SFMono-Nerd-Font-Ligaturized.git /tmp/SFMono_Nerd_Font
-# mv /tmp/SFMono_Nerd_Font/* $HOME/Library/Fonts
-# rm -rf /tmp/SFMono_Nerd_Font/
 
-# curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.28/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
-
-# # Installing helix language server
-# git clone https://github.com/estin/simple-completion-language-server.git /tmp/simple-completion-language-server
-# (cd /tmp/simple-completion-language-server && cargo install --path .)
-# rm -rf /tmp/simple-completion-language-server
+curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.47/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
 
 
-# source $HOME/.zshrc
-# cfg config --local status.showUntrackedFiles no
+echo "🔄 Cloning Config..."
+git clone --depth=1 "$REPO_URL" "$TMP_DIR"
 
-# # Python Packages (mainly for data science)
-# echo "Installing Python Packages..."
-# curl https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh | sh
-# source $HOME/.zshrc
-# conda install -c apple tensorflow-deps
-# conda install -c conda-forge pybind11
-# conda install matplotlib
-# conda install jupyterlab
-# conda install seaborn
-# conda install opencv
-# conda install joblib
-# conda install pytables
-# pip install tensorflow-macos
-# pip install tensorflow-metal
-# pip install debugpy
-# pip install sklearn
 
-mv .config/sketchybar $HOME/.config/sketchybar
+# Define date safely
+DATE=$(date +"%Y-%m-%d_%H-%M-%S")
+TMP_DIR=$(mktemp -d)
+REPO_URL="https://github.com/koorikla/dotfiles.git"
+
+# Define configs to sync
+CONFIGS=(
+  ".config/sketchybar"
+  ".config/borders"
+  ".config/skhd"
+  ".config/yabai"
+)
+
+for cfg in "${CONFIGS[@]}"; do
+  SRC="$TMP_DIR/$cfg"
+  DEST="$HOME/$cfg"
+  if [[ -d "$DEST" || -f "$DEST" ]]; then
+    echo "📦 Backing up $DEST → ${DEST}_backup-$DATE"
+    mv "$DEST" "${DEST}_backup-$DATE"
+  fi
+  echo "📂 Installing $cfg"
+  mkdir -p "$(dirname "$DEST")"
+  mv "$SRC" "$DEST"
+done
+
+# Handle dotfiles that are not under .config
+DOTFILES=(
+  ".zshrc"
+  ".starship.toml"
+)
+
+for file in "${DOTFILES[@]}"; do
+  SRC="$TMP_DIR/.config/$file"
+  DEST="$HOME/$file"
+  if [[ -f "$DEST" ]]; then
+    echo "📦 Backing up $DEST → ${DEST}_backup-$DATE"
+    mv "$DEST" "${DEST}_backup-$DATE"
+  fi
+  if [[ -f "$SRC" ]]; then
+    echo "📂 Installing $file"
+    mv "$SRC" "$DEST"
+  fi
+done
 
 # Start Services
 echo "Starting Services (grant permissions)..."

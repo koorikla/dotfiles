@@ -7,11 +7,8 @@ source $ZSH/oh-my-zsh.sh
 autoload -Uz compinit
 compinit
 
-
 zstyle ':completion:*' menu select
 zstyle ':completion:*' select-prompt '%SScrolling active: %p%s'
-
-
 
 # kubectl completion
 if [[ $commands[kubectl] ]]; then
