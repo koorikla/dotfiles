@@ -18,19 +18,20 @@ brew tap koekeishiya/formulae
 ## Formulae
 echo "Installing Brew Formulae..."
 ### Essentials
-# brew install gsl
-# brew install llvm
-# brew install boost
-# brew install libomp
-# brew install armadillo
+brew install gsl
+brew install llvm
+brew install boost
+brew install libomp
+brew install armadillo
 brew install wget
 brew install jq
-# brew install ripgrep
-# brew install bear
-# brew install mas
-# brew install gh
-# brew install ifstat
-# brew install switchaudio-osx
+brew install yq
+brew install ripgrep
+brew install bear
+brew install mas
+brew install gh
+brew install ifstat
+brew install switchaudio-osx
 brew install skhd
 brew install sketchybar
 brew install borders
@@ -39,17 +40,18 @@ brew install yabai
 brew install kubectl
 brew install k9s
 brew install minikube
+brew install helm
 
 # ### Terminal
 # brew install neovim
 # brew install helix
-# brew install starship
-# brew install zsh-autosuggestions
-# brew install zsh-fast-syntax-highlighting
+brew install starship
+brew install zsh-autosuggestions
+brew install zsh-fast-syntax-highlighting
 # brew install zoxide
 
 ### Nice to have
-# brew install lulu
+brew install lulu
 # brew install btop
 # brew install svim
 # brew install lazygit
@@ -62,12 +64,12 @@ brew install minikube
 ## Casks
 echo "Installing Brew Casks..."
 ### Terminals & Browsers
-brew install --cask alacritty
-brew install --cask kitty
-brew install --cask orion
+# brew install --cask alacritty
+# brew install --cask kitty
+# brew install --cask orion
 
 ### Office
-brew install --cask inkscape
+# brew install --cask inkscape
 brew install --cask libreoffice
 brew install --cask zoom
 brew install --cask meetingbar
@@ -92,6 +94,7 @@ brew install --cask font-hack-nerd-font
 brew install --cask font-jetbrains-mono
 brew install --cask font-fira-code
 
+
 # # Mac App Store Apps
 # echo "Installing Mac App Store Apps..."
 # mas install 1451685025 #Wireguard
@@ -100,42 +103,42 @@ brew install --cask font-fira-code
 
 # # macOS Settings
 # echo "Changing macOS defaults..."
-# defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
-# defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
-# defaults write com.apple.spaces spans-displays -bool false
-# defaults write com.apple.dock autohide -bool true
-# defaults write com.apple.dock "mru-spaces" -bool "false"
-# defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
-# defaults write com.apple.LaunchServices LSQuarantine -bool false
-# defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
-# defaults write NSGlobalDomain KeyRepeat -int 1
-# defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
-# defaults write NSGlobalDomain AppleShowAllExtensions -bool true
-# defaults write NSGlobalDomain _HIHideMenuBar -bool true
-# defaults write NSGlobalDomain AppleHighlightColor -string "0.65098 0.85490 0.58431"
-# defaults write NSGlobalDomain AppleAccentColor -int 1
+defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+defaults write com.apple.spaces spans-displays -bool false
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock "mru-spaces" -bool "false"
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+defaults write com.apple.LaunchServices LSQuarantine -bool false
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+defaults write NSGlobalDomain KeyRepeat -int 1
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
+defaults write NSGlobalDomain AppleHighlightColor -string "0.65098 0.85490 0.58431"
+defaults write NSGlobalDomain AppleAccentColor -int 1
 # defaults write com.apple.screencapture location -string "$HOME/Desktop"
 # defaults write com.apple.screencapture disable-shadow -bool true
 # defaults write com.apple.screencapture type -string "png"
-# defaults write com.apple.finder DisableAllAnimations -bool true
+defaults write com.apple.finder DisableAllAnimations -bool true
 # defaults write com.apple.finder ShowExternalHardDrivesOnDesktop -bool false
 # defaults write com.apple.finder ShowHardDrivesOnDesktop -bool false
 # defaults write com.apple.finder ShowMountedServersOnDesktop -bool false
 # defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool false
-# defaults write com.apple.Finder AppleShowAllFiles -bool true
+defaults write com.apple.Finder AppleShowAllFiles -bool true
 # defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 # defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
-# defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
 # defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
-# defaults write com.apple.finder ShowStatusBar -bool false
+defaults write com.apple.finder ShowStatusBar -bool false
 # defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool YES
 # defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
-# defaults write com.apple.Safari IncludeDevelopMenu -bool true
+defaults write com.apple.Safari IncludeDevelopMenu -bool true
 # defaults write com.apple.Safari WebKitDeveloperExtrasEnabledPreferenceKey -bool true
 # defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled -bool true
 # defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 # defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
-# defaults write -g NSWindowShouldDragOnGesture YES
+defaults write -g NSWindowShouldDragOnGesture YES
 
 ## Fix for MX Master 3S
 sudo defaults write /Library/Preferences/com.apple.airport.bt.plist bluetoothCoexMgmt Hybrid
@@ -178,13 +181,20 @@ git --git-dir=$HOME/dotfiles/ --work-tree=$HOME checkout master
 # pip install debugpy
 # pip install sklearn
 
+mv .config/sketchybar $HOME/.config/sketchybar
+
 # Start Services
 echo "Starting Services (grant permissions)..."
-brew services start skhd
-brew services start yabai
+skhd --start-service
+yabai --start-service
+sketchybar --start-service
+# brew services start skhd
+# brew services start yabai
 brew services start sketchybar
 brew services start borders
-brew services start svim
+# brew services start svim
+
+
 
 csrutil status
 echo "(optional) Disable SIP for advanced yabai features."
