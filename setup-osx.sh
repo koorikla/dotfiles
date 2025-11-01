@@ -10,6 +10,9 @@ echo "Installing Brew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew analytics off
 
+# Install oh my zsh
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 ## Taps
 # echo "Tapping Brew..."
 brew tap FelixKratz/formulae
@@ -37,7 +40,6 @@ brew install sketchybar
 brew install borders
 brew install yabai
 
-brew install --cask docker-desktop
 brew install kubectl
 brew install k9s
 brew install minikube
@@ -66,6 +68,8 @@ brew install lulu
 
 ## Casks
 echo "Installing Brew Casks..."
+brew install --cask docker-desktop
+
 ### Terminals & Browsers
 # brew install --cask alacritty
 # brew install --cask kitty

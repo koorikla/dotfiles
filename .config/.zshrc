@@ -1,4 +1,7 @@
-eval "$(starship init zsh)"
+export ZSH="$HOME/.oh-my-zsh"
+export HIST_STAMPS="mm/dd/yyyy"
+plugins=(kubectl starship git)
+source $ZSH/oh-my-zsh.sh
 
 # Ensure zsh completion system is initialized
 autoload -Uz compinit
@@ -30,4 +33,12 @@ fi
 # kargo completion
 if [[ $commands[kargo] ]]; then
   source <(kargo completion zsh)
+fi
+
+if [[ $commands[crossplane] ]]; then
+  source <(crossplane completions)
+fi
+
+if [[ $commands[kind] ]]; then
+  source <(kind completion zsh)
 fi
