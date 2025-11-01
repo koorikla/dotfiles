@@ -13,7 +13,7 @@ brew analytics off
 ## Taps
 # echo "Tapping Brew..."
 brew tap FelixKratz/formulae
-# brew tap koekeishiya/formulae
+brew tap koekeishiya/formulae
 
 ## Formulae
 echo "Installing Brew Formulae..."
@@ -36,7 +36,9 @@ brew install sketchybar
 brew install borders
 brew install yabai
 
-
+brew install kubectl
+brew install k9s
+brew install minikube
 
 # ### Terminal
 # brew install neovim
@@ -47,12 +49,12 @@ brew install yabai
 # brew install zoxide
 
 ### Nice to have
-brew install lulu
-brew install btop
-brew install svim
-brew install lazygit
-brew install wireguard-go
-brew install dooit
+# brew install lulu
+# brew install btop
+# brew install svim
+# brew install lazygit
+# brew install wireguard-go
+# brew install dooit
 
 ### Custom HEAD only forks
 # brew install fnnn --head # nnn fork (changed colors, keymappings)
@@ -80,7 +82,7 @@ brew install --cask vlc
 
 ### Nice to have
 brew install --cask alfred
-brew install --cask spotify
+# brew install --cask spotify
 
 ### Fonts
 brew install --cask sf-symbols
