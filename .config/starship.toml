@@ -10,14 +10,14 @@ disabled = false
 
 [git_commit]
 commit_hash_length = 7
-tag_disabled = false
+tag_disabled = true
 only_detached = false
 
 [battery]
 disabled = true
 
 [python]
-disabled = true
+disabled = false
 
 [cmake]
 disabled = true
@@ -52,3 +52,6 @@ format = '[$symbol \[$name\]]($style) '
 [sudo]
 allow_windows = true
 disabled = false
+
+[cmd_duration]
+format = 'underwent [$duration](bold yellow)'
