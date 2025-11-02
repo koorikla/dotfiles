@@ -63,9 +63,6 @@ brew install lulu
 # brew install wireguard-go
 # brew install dooit
 
-### Custom HEAD only forks
-# brew install fnnn --head # nnn fork (changed colors, keymappings)
-
 ## Casks
 echo "Installing Brew Casks..."
 brew install --cask docker-desktop
@@ -210,13 +207,8 @@ echo "Starting Services (grant permissions)..."
 skhd --start-service
 yabai --start-service
 sketchybar --start-service
-# brew services start skhd
-# brew services start yabai
 brew services start sketchybar
 brew services start borders
-# brew services start svim
-
-
 
 csrutil status
 echo "(optional) Disable SIP for advanced yabai features."
