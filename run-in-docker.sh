@@ -18,6 +18,8 @@
 #   nix-shell
 
 
+
+docker buildx build -t test .
 docker run -it --rm \
   -v $(pwd):/workdir \
   -v ~/.config/starship.toml:/root/.config/starship.toml:ro \
