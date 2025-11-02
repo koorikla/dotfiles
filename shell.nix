@@ -22,15 +22,11 @@ pkgs.mkShell {
     zsh
     zsh-autosuggestions
     zsh-syntax-highlighting
+    oh-my-zsh
   ];
 
-  ZDOTDIR = "$TMPDIR/zdotdir";
-
   shellHook = ''
-    export ZDOTDIR="$TMPDIR/zdotdir"
-    mkdir -p "$ZDOTDIR"
-
-    cat > "$ZDOTDIR/.zshrc" << 'EOF'      
+    cat > "/root/.zshrc" << 'EOF'      
         eval "$(starship init zsh)"
 
         # Ensure zsh completion system is initialized
@@ -38,13 +34,6 @@ pkgs.mkShell {
         compinit
         zstyle ':completion:*' menu select
         zstyle ':completion:*' select-prompt '%SScrolling active: %p%s'
-
-        # kubectl completion
-        if [[ $commands[kubectl] ]]; then
-        source <(kubectl completion zsh)
-        alias k=kubectl
-        compdef __start_kubectl k
-        fi
 
         # argocd completion
         if [[ $commands[argocd] ]]; then
@@ -59,7 +48,13 @@ pkgs.mkShell {
         # helm completion
         if [[ $commands[helm] ]]; then
         source <(helm completion zsh)
-        fi      
+        fi
+
+        ## hacky way till i find how to ask this from a variable
+        export ZSH="/nix/store/2691wlffz70nl98596s96ka6llh2z1ja-oh-my-zsh-2025-04-29/share/oh-my-zsh/"
+  #      ZSH_THEME="starship"
+        plugins=(git kubectl)
+        source $ZSH/oh-my-zsh.sh  
 EOF
 
     exec ${pkgs.zsh}/bin/zsh

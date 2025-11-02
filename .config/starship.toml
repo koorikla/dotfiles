@@ -47,6 +47,7 @@ us-east-1 = 'va'
 CompanyGroupFrobozzOnCallAccess = 'Frobozz'
 
 [container]
+disabled = false
 format = '[$symbol \[$name\]]($style) '
 
 [sudo]
