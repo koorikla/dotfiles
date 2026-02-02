@@ -206,8 +206,6 @@ done
 echo "Starting Services (grant permissions)..."
 skhd --start-service
 yabai --start-service
-sketchybar --start-service
-brew services start sketchybar
 brew services start borders
 
 csrutil status
